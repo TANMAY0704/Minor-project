@@ -6,10 +6,7 @@ from nltk.sentiment import SentimentIntensityAnalyzer
 from nltk.stem import WordNetLemmatizer
 from nltk.stem import PorterStemmer
 import nltk
-
-nltk.download('vader_lexicon')
-nltk.download('punkt')
-nltk.download('wordnet')
+b6gt5vfr4cde
 
 app = Flask(__name__)
 
@@ -18,15 +15,18 @@ with open('random_forest_model.pkl', 'rb') as file:
     rf_classifier = pickle.load(file)
 
 def preprocess_data(data):
-    #capitalize and data
-    data.loc[:, 'X3'] = data['X3'].str.strip().str.lower()
-    data.loc[:, 'X3'] = data['X3'].str.replace(' ', '')  # Remove spaces
+    
+    df = pd.DataFrame.from_dict(data, orient='index').T
+
+    # Preprocessing steps
+    df.loc[:, 'X3'] = df['X3'].str.strip().str.lower()
+    df.loc[:, 'X3'] = df['X3'].str.replace(' ', '')  # Remove spaces
 
     replacements = {'up': 'Uttar Pradesh', 'uttarpradesh': 'Uttar Pradesh', 'mp': 'Madhya Pradesh', 'delhincr': 'Delhi','mahrashtra':'Maharashtra','rajisthan' : 'Rajasthan','hariyana' : 'Haryana','maharastra':'Maharashtra'}
-    data.loc[:, 'X3'] = data['X3'].replace(replacements)
+    df.loc[:, 'X3'] = df['X3'].replace(replacements)
 
-    data.loc[:, 'X3'] = data['X3'].apply(lambda x: x.title())
-    data['X16'] = data['X16'].astype(str)
+    df.loc[:, 'X3'] = df['X3'].apply(lambda x: x.title())
+    df['X16'] = df['X16'].astype(str)
 
     # Sentiment analysis
     sia = SentimentIntensityAnalyzer()
@@ -35,21 +35,22 @@ def preprocess_data(data):
 
     negative_responses = ['no', 'nope', 'nothing', 'na', 'nope.', 'nah', 'not at all', 'no.']
 
-    data['X16_sentiment'] = data['X16'].apply(lambda x: 0.0 if any(token in [stemmer.stem(lemmatizer.lemmatize(word)) for word in nltk.word_tokenize(x.lower())] for token in negative_responses) else sia.polarity_scores(x)['compound'] if isinstance(x, str) else 0.0)
+    df['X16_sentiment'] = df['X16'].apply(lambda x: 0.0 if any(token in [stemmer.stem(lemmatizer.lemmatize(word)) for word in nltk.word_tokenize(x.lower())] for token in negative_responses) else sia.polarity_scores(x)['compound'] if isinstance(x, str) else 0.0)
 
     # One-hot encode categorical columns
-    columns_to_encode = [col for col in data.columns if col not in ['X2', 'X6', 'X17', 'X16', 'X16_sentiment']]
-    data_encoded = pd.get_dummies(data, columns=columns_to_encode, drop_first=False)
+    columns_to_encode = [col for col in df.columns if col not in ['X2', 'X6', 'X17', 'X16', 'X16_sentiment','X18']]
+    df_encoded = pd.get_dummies(df, columns=columns_to_encode, drop_first=False)
 
     # Ensure test data contains all columns present in training data
-    missing_columns = set(data_encoded.columns) - set(data.columns)
+    missing_columns = set(df_encoded.columns) - set(df.columns)
     for col in missing_columns:
-        data_encoded[col] = False  
+        df_encoded[col] = False  
 
     # Reorder columns to match the order in the training data
-    data_encoded = data_encoded[data_encoded.columns]
+    df_encoded = df_encoded[df_encoded.columns]
 
-    return data_encoded.drop(columns=['X16','X6'])
+    return df_encoded.drop(columns=['X16','X6'])
+
 
 def map_input_values(data):
     # Define mappings for each column
@@ -80,32 +81,40 @@ def index():
     return redirect(url_for('survey'))
 
 @app.route('/survey', methods=['GET', 'POST'])
+@app.route('/survey', methods=['GET', 'POST'])
 def survey():
     if request.method == 'POST':
         # Process form submission
         data = request.form.to_dict()
      
         # Map input values
-        #data = map_input_values(pd.DataFrame([data])) 
-
-        print("Form Data:", data)
         processed_data = preprocess_data(data)  # Preprocess form data
 
+        # Ensure consistency with model features
+        missing_features = set(rf_classifier.feature_names_in_) - set(processed_data.columns)
+        for feature in missing_features:
+            processed_data[feature] = 0  # Add missing features with value 0
+
+        # Reorder columns
+        processed_data = processed_data[rf_classifier.feature_names_in_]
+
         # Predict using the trained model
-        
+        prediction = rf_classifier.predict(processed_data)[0]
         
         # Construct query string
         query_string = '&'.join([f"{key}={value}" for key, value in data.items()])
-        return redirect(url_for('result', data=query_string, prediction=''))  # Redirect to result page with data and prediction
+        return redirect(url_for('result', data=query_string, prediction=prediction))  # Redirect to result page with data and prediction
 
     return render_template('form.html')
 
+
+@app.route('/result')
 @app.route('/result')
 def result():
     data_string = request.args.get('data')  # Get the data string from the query string
     data = dict(item.split('=') for item in data_string.split('&'))
     prediction = request.args.get('prediction')  # Get the prediction
-    return render_template('result.html', data=data, prediction=prediction)
+    return render_template('result.html', data=data, predictions=[prediction])  # Pass prediction as a list
 
 if __name__ == '__main__':
     app.run(debug=True)
