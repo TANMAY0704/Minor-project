@@ -6,7 +6,7 @@ from nltk.sentiment import SentimentIntensityAnalyzer
 from nltk.stem import WordNetLemmatizer
 from nltk.stem import PorterStemmer
 import nltk
-b6gt5vfr4cde
+
 
 app = Flask(__name__)
 
