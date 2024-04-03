@@ -81,7 +81,6 @@ def index():
     return redirect(url_for('survey'))
 
 @app.route('/survey', methods=['GET', 'POST'])
-@app.route('/survey', methods=['GET', 'POST'])
 def survey():
     if request.method == 'POST':
         # Process form submission
@@ -90,15 +89,10 @@ def survey():
         # Map input values
         processed_data = preprocess_data(data)  # Preprocess form data
 
+        print(processed_data)  # Debugging print statement
+
         # Ensure consistency with model features
-        missing_features = set(rf_classifier.feature_names_in_) - set(processed_data.columns)
-        for feature in missing_features:
-            processed_data[feature] = 0  # Add missing features with value 0
-
-        # Reorder columns
-        processed_data = processed_data[rf_classifier.feature_names_in_]
-
-        # Predict using the trained model
+        
         prediction = rf_classifier.predict(processed_data)[0]
         
         # Construct query string

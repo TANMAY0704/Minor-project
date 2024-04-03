@@ -7,7 +7,16 @@
     <title>Student Mental Wellness Survey</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <style>
-        /* Add your custom styles here */
+        input[type="radio"] {
+    display: inline-block;
+    margin-right: 5px; /* Adjust as needed */
+}
+
+label {
+    display: inline-block;
+    margin-right: 10px; /* Adjust as needed */
+}
+
     </style>
 </head>
 
@@ -30,19 +39,17 @@
             <label for="X3">2. Which state are you from?</label>
             <input type="text" id="X3" name="X3" required><br><br>
 
-            <div class="X4">
-                <label for="X4">3. Gender:</label>
-                <div class="X4">
-                    <input type="radio" id="male" name="X4" value="male" required>
-                    <label for="male">Male</label>
-                    <input type="radio" id="female" name="X4" value="female" required>
-                    <label for="female">Female</label>
-                    <input type="radio" id="other" name="X4" value="other" required>
-                    <label for="other">Others</label>
-                    <input type="radio" id="preferNotToSay" name="X4" value="preferNotToSay" required>
-                    <label for="preferNotToSay">Prefer not to say</label>
-                </div>
-            </div><br>
+            <label for="X4">3. Gender:</label><br>
+            <input type="radio" id="male" name="X4" value="male" required>
+            <label for="male">Male</label>
+            <input type="radio" id="female" name="X4" value="female" required>
+            <label for="female">Female</label>
+            <input type="radio" id="other" name="X4" value="other" required>
+            <label for="other">Others</label>
+            <input type="radio" id="preferNotToSay" name="X4" value="preferNotToSay" required>
+            <label for="preferNotToSay">Prefer not to say</label><br><br>
+
+            
 
             <label for="X5">4. Grade Level/Year in School:</label>
             <select id="X5" name="X5" required>

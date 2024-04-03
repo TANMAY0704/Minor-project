@@ -1,10 +1,10 @@
 from flask import Flask, render_template, request, redirect, url_for
 import pandas as pd
 import pickle
+import nltk
 from nltk.sentiment import SentimentIntensityAnalyzer
 from nltk.stem import WordNetLemmatizer
 from nltk.stem import PorterStemmer
-import nltk
 
 app = Flask(__name__)
 
@@ -55,20 +55,16 @@ def preprocess_data(data, rf_classifier):
     df_encoded = pd.get_dummies(df, columns=columns_to_encode, drop_first=False)
 
     # Ensure test data contains all columns present in training data
-    if hasattr(rf_classifier, 'estimators_'):
-        feature_names = rf_classifier.estimators_[0].feature_importances_
-    else:
-        feature_names = rf_classifier.feature_importances_
-    feature_names_in_ = df_encoded.columns
-
-    missing_columns = set(feature_names) - set(feature_names_in_)
+    missing_columns = set(df_encoded.columns) - set(df.columns)
     for col in missing_columns:
-        df_encoded[col] = False
+        df_encoded[col] = False  
 
     # Reorder columns to match the order in the training data
-    df_encoded = df_encoded[feature_names_in_]
+    df_encoded = df_encoded[df_encoded.columns]
 
     return df_encoded.drop(columns=['X16'])
+
+
 @app.route('/')
 def index():
     return redirect(url_for('survey'))
@@ -81,6 +77,10 @@ def survey():
 
         # Preprocess form data
         processed_data = preprocess_data(data, rf_classifier)  # Pass rf_classifier argument
+
+        if processed_data.empty:
+            # Handle case where processed_data is empty
+            return render_template('error.html', message="Form data is empty or preprocessing failed.")
 
         # Predict using the trained model
         prediction = rf_classifier.predict(processed_data)[0]
