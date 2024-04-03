@@ -9,7 +9,7 @@ from data import *
 app = Flask(__name__)
 
 # Load the trained model
-random_forest_model = joblib.load('random_forest_model.pkl')
+random_forest_model = joblib.load('Models/random_forest_model.pkl')
 
 def preprocess_data(data, rf):
     df = pd.DataFrame.from_dict(data, orient='index').T
