@@ -19,10 +19,12 @@
     
     <p>Prediction:</p>
     <ul>
-        {% for prediction in predictions %}
         <li>{{ prediction }}</li>
-        {% endfor %}
     </ul>
+
+    <p>Processed Data:</p>
+    {{ processed_data | safe }}
+
 </body>
 
 </html>

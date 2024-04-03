@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Mental Wellness Survey</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        input[type="radio"] {
+    display: inline-block;
+    margin-right: 5px; /* Adjust as needed */
+}
+
+label {
+    display: inline-block;
+    margin-right: 10px; /* Adjust as needed */
+}
+
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Student Mental Wellness Survey</h1>
+    </header>
+    <main>
+        <p>Welcome to our Student Mental Health Prediction AI project! We're working on creating an AI model to predict
+            mental health issues among students. Your participation in this survey will greatly assist us in developing a
+            tool that can identify signs of depression and anxiety early on. Rest assured, all information you provide
+            will be kept strictly confidential. Your responses will help us understand the challenges students face and
+            improve mental health support services. Thank you for taking the time to contribute to this important
+            endeavor!</p>
+
+        <form id="surveyForm" action="/survey" method="post">
+            <label for="X2">1. Age:</label>
+            <input type="number" id="X2" name="X2" required><br><br>
+
+            <label for="X3">2. Which state are you from?</label>
+            <input type="text" id="X3" name="X3" required><br><br>
+
+            <label for="X4">3. Gender:</label><br>
+            <input type="radio" id="male" name="X4" value="male" required>
+            <label for="male">Male</label>
+            <input type="radio" id="female" name="X4" value="female" required>
+            <label for="female">Female</label>
+            <input type="radio" id="other" name="X4" value="other" required>
+            <label for="other">Others</label>
+            <input type="radio" id="preferNotToSay" name="X4" value="preferNotToSay" required>
+            <label for="preferNotToSay">Prefer not to say</label><br><br>
+
+            
+
+            <label for="X5">4. Grade Level/Year in School:</label>
+            <select id="X5" name="X5" required>
+                <option value="11th">11th</option>
+                <option value="12th">12th</option>
+                <option value="Bachelor1">Bachelor's 1st Year</option>
+                <option value="Bachelor2">Bachelor's 2nd Year</option>
+                <option value="Bachelor3">Bachelor's 3rd Year</option>
+                <option value="Bachelor4">Bachelor's 4th Year</option>
+                <option value="other">Other</option>
+            </select><br><br>
+
+            <label for="X6">5. What are you currently studying?</label>
+            <input type="text" id="X6" name="X6"><br><br>
+
+            <label for="X7">6. How often have you been feeling sad or hopeless in the past two weeks?</label>
+            <select id="X7" name="X7" required>
+                <option value="No">No</option>
+                <option value="Rarely">Rarely</option>
+                <option value="Sometimes">Sometimes</option>
+                <option value="Often">Often</option>
+                <option value="Everyday">Everyday</option>
+            </select><br><br>
+
+            <label for="X8">7. How often have you been feeling nervous, anxious, or on edge in the past two
+                weeks?</label>
+            <select id="X8" name="X8" required>
+                <option value="No">No</option>
+                <option value="Rarely">Rarely</option>
+                <option value="Sometimes">Sometimes</option>
+                <option value="Often">Often</option>
+                <option value="Everyday">Everyday</option>
+            </select><br><br>
+
+            <label for="X9">8. Have you experienced changes in your appetite or weight in the past two weeks?</label>
+            <select id="X9" name="X9" required>
+                <option value="NoChange">No change</option>
+                <option value="IncreasedAppetite">Increased appetite</option>
+                <option value="DecreasedAppetite">Decreased appetite</option>
+                <option value="WeightGain">Weight gain</option>
+                <option value="WeightLoss">Weight loss</option>
+            </select><br><br>
+
+            <label for="X10">9. Have you had trouble sleeping in the past two weeks?</label>
+            <select id="X10" name="X10" required>
+                <option value="No">No</option>
+                <option value="Rarely">Rarely</option>
+                <option value="Sometimes">Sometimes</option>
+                <option value="Often">Often</option>
+                <option value="Everyday">Everyday</option>
+            </select><br><br>
+
+            <label for="X11">10. Have you been feeling unusually fatigued or lacking in energy in the past two weeks?</label>
+            <select id="X11" name="X11" required>
+                <option value="No">No</option>
+                <option value="Rarely">Rarely</option>
+                <option value="Sometimes">Sometimes</option>
+                <option value="Often">Often</option>
+                <option value="Everyday">Everyday</option>
+            </select><br><br>
+
+            <label for="X12">11. Have you had trouble concentrating in the past two weeks?</label>
+            <select id="X12" name="X12" required>
+                <option value="No">No</option>
+                <option value="Rarely">Rarely</option>
+                <option value="Sometimes">Sometimes</option>
+                <option value="Often">Often</option>
+                <option value="Everyday">Everyday</option>
+            </select><br><br>
+
+            <label for="X13">12. Have you had recurring thoughts of death or suicide in the past two weeks?</label>
+            <select id="X13" name="X13" required>
+                <option value="No">No</option>
+                <option value="Rarely">Rarely</option>
+                <option value="Sometimes">Sometimes</option>
+                <option value="Often">Often</option>
+                <option value="Everyday">Everyday</option>
+            </select><br><br>
+
+            <label for="X14">13. Have you experienced any physical symptoms in the past two weeks?</label>
+            <select id="X14" name="X14" required>
+                <option value="No">No</option>
+                <option value="Rarely">Rarely</option>
+                <option value="Sometimes">Sometimes</option>
+                <option value="Often">Often</option>
+                <option value="Everyday">Everyday</option>
+            </select><br><br>
+
+            <label for="X15">14. Have you noticed any changes in your academic performance or attendance due to
+                emotional distress in the past two weeks?</label>
+            <select id="X15" name="X15" required>
+                <option value="NoChange">No change</option>
+                <option value="SlightDecline">Slight decline</option>
+                <option value="SignificantDecline">Significant decline</option>
+            </select><br><br>
+
+            <label for="X16">15. Is there anything else you would like to share about your emotional well-being
+                or any concerns you have?</label>
+            <textarea id="X16" name="X16" rows="4" cols="50"></textarea><br><br>
+            <!--      
+            <label for="X18">16. Have you ever been diagnosed with depression or anxiety by a healthcare
+                professional?</label>
+            <select id="X18" name="X18" required>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select><br><br>
+            -->
+            <input type="submit" value="Submit">
+        </form>
+    </main>
+    <footer>
+        <!-- Add footer content here if needed -->
+    </footer>
+</body>
+
+</html>
