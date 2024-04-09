@@ -25,14 +25,16 @@ label {
         <h1>Student Mental Wellness Survey</h1>
     </header>
     <main>
+        
         <p>Welcome to our Student Mental Health Prediction AI project! We're working on creating an AI model to predict
             mental health issues among students. Your participation in this survey will greatly assist us in developing a
             tool that can identify signs of depression and anxiety early on. Rest assured, all information you provide
             will be kept strictly confidential. Your responses will help us understand the challenges students face and
             improve mental health support services. Thank you for taking the time to contribute to this important
-            endeavor!</p>
+            endeavor!</p><br><br>
 
         <form id="surveyForm" action="/survey" method="post">
+            
             <label for="X2">1. Age:</label>
             <input type="number" id="X2" name="X2" required><br><br>
 
@@ -40,13 +42,13 @@ label {
             <input type="text" id="X3" name="X3" required><br><br>
 
             <label for="X4">3. Gender:</label><br>
-            <input type="radio" id="male" name="X4" value="male" required>
+            <input type="radio" id="male" name="X4" value="Male" required>
             <label for="male">Male</label>
-            <input type="radio" id="female" name="X4" value="female" required>
+            <input type="radio" id="female" name="X4" value="Female" required>
             <label for="female">Female</label>
-            <input type="radio" id="other" name="X4" value="other" required>
-            <label for="other">Others</label>
-            <input type="radio" id="preferNotToSay" name="X4" value="preferNotToSay" required>
+            <input type="radio" id="other" name="X4" value="Others" required>
+            <label for="others">Others</label>
+            <input type="radio" id="preferNotToSay" name="X4" value="Prefer Not To Say" required>
             <label for="preferNotToSay">Prefer not to say</label><br><br>
 
             
@@ -55,11 +57,11 @@ label {
             <select id="X5" name="X5" required>
                 <option value="11th">11th</option>
                 <option value="12th">12th</option>
-                <option value="Bachelor1">Bachelor's 1st Year</option>
-                <option value="Bachelor2">Bachelor's 2nd Year</option>
-                <option value="Bachelor3">Bachelor's 3rd Year</option>
-                <option value="Bachelor4">Bachelor's 4th Year</option>
-                <option value="other">Other</option>
+                <option value="Bachelor's 1st Year">Bachelor's 1st Year</option>
+                <option value="Bachelor's 2nd Year">Bachelor's 2nd Year</option>
+                <option value="Bachelor's 3rd Year">Bachelor's 3rd Year</option>
+                <option value="Bachelor's 4th Year">Bachelor's 4th Year</option>
+                <option value="Others">Others</option>
             </select><br><br>
 
             <label for="X6">5. What are you currently studying?</label>
@@ -86,11 +88,11 @@ label {
 
             <label for="X9">8. Have you experienced changes in your appetite or weight in the past two weeks?</label>
             <select id="X9" name="X9" required>
-                <option value="NoChange">No change</option>
-                <option value="IncreasedAppetite">Increased appetite</option>
-                <option value="DecreasedAppetite">Decreased appetite</option>
-                <option value="WeightGain">Weight gain</option>
-                <option value="WeightLoss">Weight loss</option>
+                <option value="No change">No Change</option>
+                <option value="Increased appetite">Increased Appetite</option>
+                <option value="Decreased appetite">Decreased Appetite</option>
+                <option value="Weight gain">Weight Gain</option>
+                <option value="Weight loss">Weight Loss</option>
             </select><br><br>
 
             <label for="X10">9. Have you had trouble sleeping in the past two weeks?</label>
@@ -141,28 +143,27 @@ label {
             <label for="X15">14. Have you noticed any changes in your academic performance or attendance due to
                 emotional distress in the past two weeks?</label>
             <select id="X15" name="X15" required>
-                <option value="NoChange">No change</option>
-                <option value="SlightDecline">Slight decline</option>
-                <option value="SignificantDecline">Significant decline</option>
+                <option value="No change">No Change</option>
+                <option value="Slight decline">Slight Decline</option>
+                <option value="Significant decline">Significant Decline</option>
             </select><br><br>
 
             <label for="X16">15. Is there anything else you would like to share about your emotional well-being
                 or any concerns you have?</label>
             <textarea id="X16" name="X16" rows="4" cols="50"></textarea><br><br>
-            <!--      
-            <label for="X18">16. Have you ever been diagnosed with depression or anxiety by a healthcare
-                professional?</label>
-            <select id="X18" name="X18" required>
-                <option value="Yes">Yes</option>
-                <option value="No">No</option>
-            </select><br><br>
-            -->
+
             <input type="submit" value="Submit">
+            
         </form>
+        <div id="predictionDiv"></div>
+        
+        
+        
+        
     </main>
-    <footer>
-        <!-- Add footer content here if needed -->
-    </footer>
+
+
+       
 </body>
 
 </html>

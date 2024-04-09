@@ -1,0 +1,163 @@
+/* CSS Reset to normalize browser defaults */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Variables (Customize these) */
+:root {
+  --main-bg: #f5f5f5;
+  --content-bg: #fff;
+  --primary-color: #4caf50;
+  --font: Arial, sans-serif;
+}
+
+/* Body styles */
+body {
+  font-family: var(--font);
+  background-color: var(--main-bg);
+  color: #333;
+}
+
+/* Header styles */
+header {
+  background-color: #333;
+  padding: 20px 0;
+  text-align: center; /* More often centered in modern headers */
+}
+
+h1 {
+  color: #fff;
+}
+
+/* Main content styles */
+main {
+  background-color: var(--content-bg);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 20px auto; /* Center content */
+  max-width: 800px; /* Limit content width */
+}
+
+/* Form styles */
+form {
+  max-width: 600px; /* Smaller forms look better */
+  margin: 0 auto;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+input[type="text"],
+input[type="number"],
+select,
+textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-family: var(--font);
+}
+
+/* Improved focus styles */
+input[type="text"]:focus,
+input[type="number"]:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--primary-color);
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.3); /* More visible focus */
+}
+
+/* Radio button styles */
+.gender-options input[type="radio"],
+.gender-options label {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+/* Select box styles */
+select {
+  appearance: none; /* Remove default appearance */
+   /* Custom dropdown arrow */
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 24px 24px;
+  padding-right: 40px; /* Space for dropdown arrow */
+  transition: background-color 0.3s, transform 0.3s ease; /* Smooth transition for background color and transform */
+}
+
+select:hover {
+  background-color: #f0f0f0; /* Background color on hover */
+}
+
+select:focus {
+  outline: none; /* Remove default outline */
+  background-color: #e6e6e6; /* Background color on focus */
+  transform: scale(1.05); /* Scale effect on focus */
+}
+
+/* Textarea styles */
+textarea {
+  height: 120px; /* Adjust height for textarea */
+}
+
+/* Submit button styles */
+input[type="submit"] {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 14px 30px; /* More horizontal padding */
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  display: block;
+  margin: 20px auto 0 auto;
+  font-weight: bold; /* Slightly bolder text */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Smoother transitions */
+}
+
+input[type="submit"]:hover {
+  background-color: darken(var(--primary-color), 5%);
+  transform: translateY(-2px); /* Subtle lift on hover */
+}
+
+input[type="submit"]:active { /* Optional: Added style when pressing the button */
+  background-color: darken(var(--primary-color), 10%);
+}
+
+/* Additional styles for survey form */
+.section-header {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.data-item {
+  margin-bottom: 8px;
+}
+
+.label {
+  font-weight: bold;
+  display: inline-block;
+  width: 180px; /* Adjust width for labels as needed */
+}
+
+.value {
+  display: inline; 
+} 
+
+/* Optional: Other comments styling */
+.other-comments { 
+  margin-top: 15px;
+}
+
+.other-comments-label {
+  font-weight: bold;
+}
