@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
+from werkzeug.exceptions import BadRequest
 import pandas as pd
 from nltk.sentiment import SentimentIntensityAnalyzer
 from nltk.stem import WordNetLemmatizer
@@ -6,10 +7,8 @@ from nltk.stem import PorterStemmer
 import joblib
 import nltk
 from data import *
+
 app = Flask(__name__, static_folder='static', template_folder='templates')
-
-
-
 
 # Load the trained model and feature names
 random_forest_model_tuple = joblib.load('C:/Users/pande/OneDrive/Documents/GitHub/Minor project/Final/model/Models/random_forest_model.pkl')
@@ -68,16 +67,19 @@ def index():
 
 @app.route('/survey', methods=['POST'])
 def survey():
-    data = request.form.to_dict()
+    try:
+        data = request.form.to_dict()
 
-    # Preprocess form data
-    processed_data = preprocess_data(data, random_forest_model)
+        # Preprocess form data
+        processed_data = preprocess_data(data, random_forest_model)
 
-    # Predict using the trained model
-    prediction = random_forest_model.predict(processed_data)[0]
+        # Predict using the trained model
+        prediction = random_forest_model.predict(processed_data)[0]
 
-    # Redirect to the result page with prediction and processed data
-    return redirect(url_for('result', prediction=prediction, processed_data=processed_data.to_html()))
+        # Redirect to the result page with prediction and processed data
+        return redirect(url_for('result', prediction=prediction, processed_data=processed_data.to_html()))
+    except Exception as e:
+        return render_template('error.html', error=str(e))
 
 @app.route('/result')
 def result():

@@ -76,13 +76,6 @@ textarea:focus {
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.3); /* More visible focus */
 }
 
-/* Radio button styles */
-.gender-options input[type="radio"],
-.gender-options label {
-  display: inline-block;
-  margin-right: 20px;
-}
-
 /* Select box styles */
 select {
   appearance: none; /* Remove default appearance */
@@ -124,12 +117,12 @@ input[type="submit"] {
 }
 
 input[type="submit"]:hover {
-  background-color: darken(var(--primary-color), 5%);
+  background-color: #3d8b40; /* Darken the primary color on hover */
   transform: translateY(-2px); /* Subtle lift on hover */
 }
 
 input[type="submit"]:active { /* Optional: Added style when pressing the button */
-  background-color: darken(var(--primary-color), 10%);
+  background-color: #367c3c; /* Darken the primary color more when active */
 }
 
 /* Additional styles for survey form */

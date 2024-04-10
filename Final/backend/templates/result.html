@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,9 +15,9 @@
             color: #333; /* Default text color */
         }
 
-        h1 {
+        header {
             text-align: center;
-            margin-top: 0;
+            margin-bottom: 20px;
         }
 
         .result-container {
@@ -26,16 +25,11 @@
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow for result container */
-            margin-bottom: 20px;
+            margin: 0 auto;
+            max-width: 600px; /* Limit width for better readability */
         }
 
-        .question-list {
-            margin-top: 20px;
-            list-style-type: none;
-            padding-left: 0;
-        }
-
-        .question-list li {
+        .result-container p {
             margin-bottom: 10px;
         }
 
@@ -51,14 +45,17 @@
         <h1>Survey Result</h1>
     </header>
     <div class="result-container">
-
-
-        <p>Prediction:</p>
-        <ul>
-            <li class="prediction">{{ prediction }}</li>
-        </ul>
+        <p>The prediction for the survey is:</p>
+        <div class="prediction">
+            {% if prediction == "True" %}
+                High Risk of Depression
+            {% elif prediction == "False" %}
+                Low Risk of Depression
+            {% else %}
+                Prediction Unavailable
+            {% endif %}
+        </div>
     </div>
-
+    
 </body>
-
 </html>
